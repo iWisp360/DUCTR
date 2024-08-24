@@ -3,7 +3,7 @@ use std::{
     process::exit,
 };
 
-const VALUE_OF_A_KILOBYTE_IN_BYTES: usize = 1024;
+const VALUE_OF_A_KIBIBYTE_IN_BYTES: usize = 1024;
 #[derive(PartialEq, Eq)]
 enum StorageUnit {
     B,
@@ -88,15 +88,15 @@ fn main() {
                             StorageUnit::TiB => "TiB",
                         };
                         let output_unit = match output {
-                            StorageUnit::B => "B",
-                            StorageUnit::KiB => "KiB",
-                            StorageUnit::MiB => "MiB",
-                            StorageUnit::GiB => "GiB",
-                            StorageUnit::TiB => "TiB",
+                            StorageUnit::B => "bytes",
+                            StorageUnit::KiB => "kibibytes",
+                            StorageUnit::MiB => "mebibytes",
+                            StorageUnit::GiB => "gibibytes",
+                            StorageUnit::TiB => "tebibytes",
                         };
                         let result = convert(input, output, number);
                         println!(
-                            "The result from {}{} to {} is {}{}.",
+                            "The result from {} {} to {} is {} {}.",
                             number, input_unit, output_unit, result, output_unit
                         );
                         break;
@@ -120,42 +120,42 @@ fn print_help() {
 }
 
 fn convert(input: StorageUnit, output: StorageUnit, number: f64) -> f64 {
-    let result = match input {
+    match input {
         StorageUnit::B => match output {
-            StorageUnit::KiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
-            StorageUnit::MiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::GiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(3) as f64,
-            StorageUnit::TiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(4) as f64,
+            StorageUnit::KiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::MiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::GiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(3) as f64,
+            StorageUnit::TiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(4) as f64,
             _ => number,
         },
         StorageUnit::KiB => match output {
-            StorageUnit::B => number * VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
-            StorageUnit::MiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
-            StorageUnit::GiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::TiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(3) as f64,
+            StorageUnit::B => number * VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::MiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::GiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::TiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(3) as f64,
             _ => number,
         },
         StorageUnit::MiB => match output {
-            StorageUnit::B => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::KiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
-            StorageUnit::GiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::TiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(3) as f64,
+            StorageUnit::B => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::KiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::GiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::TiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
             _ => number,
         },
         StorageUnit::GiB => match output {
-            StorageUnit::B => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(3) as f64,
-            StorageUnit::KiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::MiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
-            StorageUnit::TiB => number / VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::B => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(3) as f64,
+            StorageUnit::KiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::MiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
+            StorageUnit::TiB => number / VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
             _ => number,
         },
         StorageUnit::TiB => match output {
-            StorageUnit::B => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(4) as f64,
-            StorageUnit::KiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(3) as f64,
-            StorageUnit::MiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES.pow(2) as f64,
-            StorageUnit::GiB => number * VALUE_OF_A_KILOBYTE_IN_BYTES as f64,
+            StorageUnit::B => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(4) as f64,
+            StorageUnit::KiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(3) as f64,
+            StorageUnit::MiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES.pow(2) as f64,
+            StorageUnit::GiB => number * VALUE_OF_A_KIBIBYTE_IN_BYTES as f64,
             _ => number,
         },
-    };
-    result
+    }
 }
+
